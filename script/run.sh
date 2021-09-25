@@ -1,9 +1,7 @@
 #!/bin/bash
-pid=`ps -ef |grep java|grep testDeploy-0.0.1-SNAPSHOT.jar|awk '{print $2}'`
-if [ -n "$pid" ]
-then
-kill -9 $pid
-fi
-
+docker stop springboot
+docker rm springboot
+docker rmi springboot
 cd ASEP
-echo "run.sh is running"
+docker build -t springboot .
+docker run -d --name springboot springboot -p 8082:8080 springboot
